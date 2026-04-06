@@ -10,8 +10,7 @@
 
 ## 👥 Team Members
 
-* Jeswith
-* Venkata Sai
+* Jeswith venkata sai
 * Lakshman
 
 ---
