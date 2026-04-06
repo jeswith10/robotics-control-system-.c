@@ -1,115 +1,109 @@
 # 🤖 Robotics Control System
 
+---
+
 ## 📌 Project Title
 
-**Intelligent Robotics Control System for Autonomous Navigation**
+**Robotics Control System using Sensor Communication Graph (DSA in C)**
 
 ---
 
 ## 👥 Team Members
 
-* Jeswith venkata sai
+* Jeswith
+* Venkata Sai
 * Lakshman
 
 ---
 
 ## ❗ Problem Statement
 
-Design and implement a robotics control system that enables a robot to autonomously navigate an environment, avoid obstacles, and reach a target destination efficiently. The system should be capable of processing sensor inputs in real-time and making intelligent decisions for movement control.
+To develop a robotics control system that models sensor communication using a graph data structure and allows dynamic management of the system through CRUD operations (Create, Read, Update, Delete) using a menu-driven C program.
 
 ---
 
 ## 🧠 Data Structure Used
 
-The following data structures are used in the project:
+* **Graph (Adjacency List Representation)**
 
-* **Queue** → For handling sensor data and task scheduling (FIFO processing)
-* **Graph** → To represent the navigation map where nodes are positions and edges are paths
-* **Arrays** → For storing sensor readings and movement commands
-* **Stack (optional)** → For backtracking during navigation
+  * Nodes represent sensors
+  * Edges represent communication links
+* **Linked List**
+
+  * Used to store adjacency lists
+* **Dynamic Memory Allocation**
+
+  * `malloc()` and `free()` used for memory management
 
 ---
 
 ## ⚙️ Algorithm Explanation
 
-### 1. Path Planning Algorithm (Breadth-First Search - BFS)
+### 1. Graph Representation
 
-* The robot environment is modeled as a graph.
-* BFS is used to find the shortest path from the start node to the destination.
-* Ensures optimal path in an unweighted environment.
+* The system uses an adjacency list to store sensor connections
+* Each sensor maintains a list of connected sensors
 
-### 2. Obstacle Avoidance Algorithm
+### 2. CRUD Operations
 
-* Uses real-time sensor data (e.g., ultrasonic sensors).
-* If an obstacle is detected:
+* **Create (Add Node/Edge):** Add communication link between sensors
+* **Read (Display):** Show all sensor connections
+* **Update:** Modify existing sensor connection values
+* **Delete:** Remove a sensor connection
 
-  * Stop movement
-  * Recalculate path or change direction
+### 3. Search Operation
 
-### 3. Control Logic
+* Traverse adjacency list to find a specific sensor node
 
-* Input: Sensor data
-* Processing: Decision-making using algorithms
-* Output: Motor commands
+### 4. Working Principle
+
+1. User selects an option from the menu
+2. System performs the requested graph operation
+3. Updates are reflected dynamically
 
 ---
 
-## 🛠️ Compilation Instructions
+## ▶️ Compilation Instructions
 
-### Requirements:
+### Using GCC Compiler:
 
-* C++ / Python (depending on implementation)
-* GCC Compiler / Python Interpreter
-* Any robotics simulation tool (optional)
-
-### Steps to Compile (C++):
-
-```bash
-g++ robot_control.cpp -o robot
+```bash id="cmdrun1"
+gcc robot.c -o robot
 ./robot
-```
-
-### Steps to Run (Python):
-
-```bash
-python robot_control.py
 ```
 
 ---
 
 ## 📊 Sample Output
 
-```
-Initializing Robot...
-Scanning Environment...
-Obstacle Detected at (2,3)
-Recalculating Path...
-Moving Forward...
-Turning Right...
-Destination Reached Successfully!
+```id="sample1"
+Enter number of sensors: 3
+
+===== Robotics Control Menu =====
+1. Add Node
+2. Delete Node
+3. Update Node
+4. Search
+5. Display
+6. Exit
+
+Enter your choice: 1
+Enter source and destination: 0 1
+
+Enter your choice: 5
+
+Sensor Communication Network:
+Sensor 0 -> 1
+Sensor 1 ->
+Sensor 2 ->
 ```
 
 ---
 
 ## 🎥 Demo Video Link
 
-👉 https://example.com/robotics-demo-video
+👉 https://example.com/robotics-demo
 
-*(Replace this link with your actual demo video URL)*
-
----
-
-## 🚀 Future Enhancements
-
-* Integration with AI for smarter decision-making
-* Use of advanced algorithms like A* for faster navigation
-* Real-world deployment with hardware robots
-* Mobile app control interface
-
----
-
-## 📚 Conclusion
-
-This project demonstrates how data structures and algorithms can be effectively used in robotics to solve real-world navigation problems. It provides a foundation for building more advanced autonomous systems.
+*(Replace with your actual demo video link before submission)*
 
 ---
