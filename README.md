@@ -75,8 +75,7 @@ gcc robot.c -o robot
 
 ## 📊 Sample Output
 
-```id="sample1"
-Enter number of sensors: 3
+Enter number of sensors: 4
 
 ===== Robotics Control Menu =====
 1. Add Node
@@ -85,19 +84,59 @@ Enter number of sensors: 3
 4. Search
 5. Display
 6. Exit
-
 Enter your choice: 1
 Enter source and destination: 0 1
+
+Enter your choice: 1
+Enter source and destination: 0 2
+
+Enter your choice: 1
+Enter source and destination: 1 3
+
+Enter your choice: 1
+Enter source and destination: 2 3
 
 Enter your choice: 5
 
 Sensor Communication Network:
-Sensor 0 -> 1
-Sensor 1 ->
-Sensor 2 ->
-```
+Sensor 0: -> 2 -> 1 
+Sensor 1: -> 3 
+Sensor 2: -> 3 
+Sensor 3: 
 
----
+Enter your choice: 4
+Enter node to search: 3
+Node 3 found in Sensor 1
+Node 3 found in Sensor 2
+
+Enter your choice: 3
+Enter old value and new value: 3 5
+Node updated successfully
+
+Enter your choice: 5
+
+Sensor Communication Network:
+Sensor 0: -> 2 -> 1 
+Sensor 1: -> 5 
+Sensor 2: -> 5 
+Sensor 3: 
+
+Enter your choice: 2
+Enter node to delete: 5
+Node deleted successfully
+
+Enter your choice: 5
+
+Sensor Communication Network:
+Sensor 0: -> 2 -> 1 
+Sensor 1: 
+Sensor 2: 
+Sensor 3: 
+
+Enter your choice: 6
+Exiting program...
+
+
 
 ## 🎥 Demo Video Link
 
