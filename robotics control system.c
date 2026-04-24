@@ -1,144 +1,275 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Node structure
-struct Node {
+/* =========================================================
+   NODE STRUCTURE
+   ========================================================= */
+struct Node
+{
     int data;
     struct Node* next;
 };
 
-// Graph structure
-struct Graph {
+/* =========================================================
+   GRAPH STRUCTURE
+   ========================================================= */
+struct Graph
+{
     int vertices;
     struct Node** adjList;
 };
 
-// Create a new node
-struct Node* createNode(int data) {
+/* =========================================================
+   CREATE NODE
+   ========================================================= */
+struct Node* createNode(int data)
+{
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+
+    if (newNode == NULL)
+    {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
     newNode->data = data;
     newNode->next = NULL;
+
     return newNode;
 }
 
-// Create graph
-struct Graph* createGraph(int vertices) {
+/* =========================================================
+   CREATE GRAPH
+   ========================================================= */
+struct Graph* createGraph(int vertices)
+{
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+
+    if (graph == NULL)
+    {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
     graph->vertices = vertices;
 
     graph->adjList = (struct Node**)malloc(vertices * sizeof(struct Node*));
 
-    for (int i = 0; i < vertices; i++) {
+    if (graph->adjList == NULL)
+    {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < vertices; i++)
+    {
         graph->adjList[i] = NULL;
     }
 
     return graph;
 }
 
-// CREATE → Add Edge (Sensor Communication)
-void addNode(struct Graph* graph, int src, int dest) {
+/* =========================================================
+   ADD NODE (EDGE)
+   ========================================================= */
+void addNode(struct Graph* graph, int src, int dest)
+{
+    if (src >= graph->vertices || dest >= graph->vertices)
+    {
+        printf("Invalid sensor index!\n");
+        return;
+    }
+
     struct Node* newNode = createNode(dest);
+
     newNode->next = graph->adjList[src];
     graph->adjList[src] = newNode;
+
+    printf("Connection added successfully\n");
 }
 
-// READ → Display Graph
-void displayGraph(struct Graph* graph) {
-    printf("\nSensor Communication Network:\n");
-    for (int i = 0; i < graph->vertices; i++) {
+/* =========================================================
+   DISPLAY GRAPH
+   ========================================================= */
+void displayGraph(struct Graph* graph)
+{
+    printf("\n===== Sensor Communication Network =====\n");
+
+    for (int i = 0; i < graph->vertices; i++)
+    {
         struct Node* temp = graph->adjList[i];
+
         printf("Sensor %d: ", i);
 
-        while (temp) {
+        while (temp != NULL)
+        {
             printf("-> %d ", temp->data);
             temp = temp->next;
         }
+
         printf("\n");
     }
 }
 
-// DELETE → Remove Node
-void deleteNode(struct Graph* graph, int key) {
-    for (int i = 0; i < graph->vertices; i++) {
+/* =========================================================
+   DELETE NODE
+   ========================================================= */
+void deleteNode(struct Graph* graph, int key)
+{
+    int deleted = 0;
+
+    for (int i = 0; i < graph->vertices; i++)
+    {
         struct Node* temp = graph->adjList[i];
         struct Node* prev = NULL;
 
-        while (temp != NULL) {
-            if (temp->data == key) {
+        while (temp != NULL)
+        {
+            if (temp->data == key)
+            {
                 if (prev == NULL)
+                {
                     graph->adjList[i] = temp->next;
+                }
                 else
+                {
                     prev->next = temp->next;
+                }
 
                 free(temp);
-                temp = (prev == NULL) ? graph->adjList[i] : prev->next;
-            } else {
+
+                deleted = 1;
+
+                if (prev == NULL)
+                    temp = graph->adjList[i];
+                else
+                    temp = prev->next;
+            }
+            else
+            {
                 prev = temp;
                 temp = temp->next;
             }
         }
     }
-    printf("Node deleted successfully\n");
+
+    if (deleted)
+        printf("Node deleted successfully\n");
+    else
+        printf("Node not found\n");
 }
 
-// UPDATE → Modify Node
-void updateNode(struct Graph* graph, int oldVal, int newVal) {
-    for (int i = 0; i < graph->vertices; i++) {
+/* =========================================================
+   UPDATE NODE
+   ========================================================= */
+void updateNode(struct Graph* graph, int oldVal, int newVal)
+{
+    int updated = 0;
+
+    for (int i = 0; i < graph->vertices; i++)
+    {
         struct Node* temp = graph->adjList[i];
 
-        while (temp) {
-            if (temp->data == oldVal) {
+        while (temp != NULL)
+        {
+            if (temp->data == oldVal)
+            {
                 temp->data = newVal;
+                updated = 1;
             }
+
             temp = temp->next;
         }
     }
-    printf("Node updated successfully\n");
+
+    if (updated)
+        printf("Node updated successfully\n");
+    else
+        printf("Old value not found\n");
 }
 
-// SEARCH → Find Node
-void searchNode(struct Graph* graph, int key) {
+/* =========================================================
+   SEARCH NODE
+   ========================================================= */
+void searchNode(struct Graph* graph, int key)
+{
     int found = 0;
 
-    for (int i = 0; i < graph->vertices; i++) {
+    for (int i = 0; i < graph->vertices; i++)
+    {
         struct Node* temp = graph->adjList[i];
 
-        while (temp) {
-            if (temp->data == key) {
+        while (temp != NULL)
+        {
+            if (temp->data == key)
+            {
                 printf("Node %d found in Sensor %d\n", key, i);
                 found = 1;
             }
+
             temp = temp->next;
         }
     }
 
     if (!found)
+    {
         printf("Node not found\n");
+    }
 }
 
-// MAIN FUNCTION (Menu Driven)
-int main() {
-    int vertices, choice;
-    int src, dest, val, newVal;
+/* =========================================================
+   FREE MEMORY
+   ========================================================= */
+void freeGraph(struct Graph* graph)
+{
+    for (int i = 0; i < graph->vertices; i++)
+    {
+        struct Node* temp = graph->adjList[i];
+
+        while (temp != NULL)
+        {
+            struct Node* next = temp->next;
+            free(temp);
+            temp = next;
+        }
+    }
+
+    free(graph->adjList);
+    free(graph);
+}
+
+/* =========================================================
+   MAIN FUNCTION
+   ========================================================= */
+int main()
+{
+    int vertices;
+    int choice;
+
+    int src, dest;
+    int val, newVal;
 
     printf("Enter number of sensors: ");
     scanf("%d", &vertices);
 
     struct Graph* graph = createGraph(vertices);
 
-    while (1) {
+    while (1)
+    {
         printf("\n===== Robotics Control Menu =====\n");
+
         printf("1. Add Node\n");
         printf("2. Delete Node\n");
         printf("3. Update Node\n");
-        printf("4. Search\n");
-        printf("5. Display\n");
+        printf("4. Search Node\n");
+        printf("5. Display Graph\n");
         printf("6. Exit\n");
+
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        switch (choice) {
-
+        switch (choice)
+        {
             case 1:
                 printf("Enter source and destination: ");
                 scanf("%d %d", &src, &dest);
@@ -169,10 +300,11 @@ int main() {
 
             case 6:
                 printf("Exiting program...\n");
+                freeGraph(graph);
                 exit(0);
 
             default:
-                printf("Invalid choice!\n");
+                printf("Invalid choice! Try again.\n");
         }
     }
 
