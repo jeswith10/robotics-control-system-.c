@@ -10,8 +10,8 @@
 
 ## 👥 Team Members
 
-* Jeswith venkata sai
-* Lakshman
+* Member 1 Jeswith venkata sai . p CDS/2025/1819
+* Member 2 Lakshman . m CDS/2025/1787
 
 ---
 
