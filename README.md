@@ -136,6 +136,7 @@ Sensor 3:
 Enter your choice: 6
 Exiting program...
 
+<img width="351" height="273" alt="Screenshot 2026-04-30 094733" src="https://github.com/user-attachments/assets/18464f45-a0fc-4198-9327-042a2b6388ec" />
 
 
 ## 🎥 Demo Video Link
