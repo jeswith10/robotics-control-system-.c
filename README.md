@@ -153,7 +153,6 @@ Exiting program...
 
 ## 🎥 Demo Video Link
 
-👉 https://example.com/robotics-demo
 
 *(Replace with your actual demo video link before submission)*
 
